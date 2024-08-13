@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block extra_css %} 
+    <link rel="stylesheet" href="{% static 'css/dishdetail.css' %}">
+{% endblock %}
+ 
+{% block content %}
+    <div class="container">
+        <div class ="contain">
+        <div class="row">
+            <div class="img2 col-lg-5 mt-5">
+                <img src="{% static 'images/gallery/cheese-burger.png' %}" class="image" alt="">
+            </div>
+            <div class="dishdetail col-lg-5">
+                <h1>Burger</h1>
+                <h2>Price: $10.00</h2>
+                <h3>Dish Description</h3>
+                <ul class ="description">
+                    Savor the juicy, mouthwatering goodness of our Classic Cheeseburger, crafted to perfection with a blend of flavors and textures. Nestled between a freshly baked, lightly toasted brioche bun, you’ll find a succulent beef patty, expertly seasoned and grilled to your preferred doneness. Melted over the top is a layer of rich, creamy cheddar cheese that adds a delightful sharpness.
+
+                        The burger is topped with crisp, crunchy lettuce, a ripe, juicy tomato slice, and tangy pickles, all adding freshness and crunch to each bite. A smear of our signature sauce, with its blend of mayonnaise, ketchup, and a hint of mustard, brings a zesty, creamy element to the mix. Each bite delivers a harmonious blend of savory, cheesy, and tangy flavors, making this Classic Cheeseburger a timeless favorite.
+                
+                </ul>
+                <div class="buttons row">
+                    <button type="submit" class="btn btn-primary col-lg-5">Add to Cart</button>
+                    <button class="btn btn-primary col-lg-5 ml-2" >Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock content %}
