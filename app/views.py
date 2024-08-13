@@ -16,3 +16,4 @@ class DishDetail(View):
         context = {
         }
         return render(request, "dishdetails.html", context)
+

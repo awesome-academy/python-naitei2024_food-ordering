@@ -635,7 +635,6 @@ progress {
   padding-left: var(--bs-gutter-x, 1rem);
   margin-right:auto;
   margin-left: auto;
-  
 }
 
 @media (min-width: 576px) {
@@ -18495,6 +18494,5 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /*-----------------------------------------------
 |   User Styles
 -----------------------------------------------*/
-
 
 /*# sourceMappingURL=theme.css.map */
