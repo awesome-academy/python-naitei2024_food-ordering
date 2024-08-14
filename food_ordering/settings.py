@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app.apps.AppConfig',
+    # 'app.apps.AppConfig',
+    'app',
+    'accounts',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -93,30 +96,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
+AUTH_PWD_MODULE="django.contrib.auth.password_validation."
+
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': (
-            'django.contrib.auth.password_validation.'
-            'UserAttributeSimilarityValidator'
-        ),
+        "NAME": f"{AUTH_PWD_MODULE}UserAttributeSimilarityValidator",
     },
     {
-        'NAME': (
-            'django.contrib.auth.password_validation.'
-            'MinimumLengthValidator'
-        ),
+        "NAME": f"{AUTH_PWD_MODULE}MinimumLengthValidator",
     },
     {
-        'NAME': (
-            'django.contrib.auth.password_validation.'
-            'CommonPasswordValidator'
-        ),
+        "NAME": f"{AUTH_PWD_MODULE}CommonPasswordValidator",
     },
     {
-        'NAME': (
-            'django.contrib.auth.password_validation.'
-            'NumericPasswordValidator'
-        ),
+        "NAME": f"{AUTH_PWD_MODULE}NumericPasswordValidator",
     },
 ]
 
@@ -142,3 +135,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'app/static')]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.User'
