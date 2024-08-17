@@ -117,6 +117,19 @@ class DishDetail(View):
             "image_url": image_url,
         }
         return render(request, "dishes/detail.html", context)
+    
+def search_view(request):
+    query = request.GET.get("q")
+    items = MenuItem.objects.filter(
+            name__icontains=query
+        ) | MenuItem.objects.filter(
+            description__icontains=query
+        )
+    context = {
+        "items": items,
+        "query": query,
+    }
+    return render(request, "search/search.html", context)
 
 
 def add_to_cart(request):

@@ -16,24 +16,30 @@
                         class="fas fa-map-marker-alt text-warning mx-2"></i><span class="fw-normal">Current Location
                     </span><span>Mirpur 1 Bus Stand, Dhaka</span></p>
             </div>
-            <form class="d-flex mt-4 mt-lg-0 ms-lg-auto ms-xl-0 align-items-center">
-                <div class="input-group-icon pe-2">
-                    <i class="fas fa-search input-box-icon text-primary"></i>
-                    <input class="form-control border-0 input-box bg-100" type="search" placeholder="Search Food"
-                        aria-label="Search" />
+            <form action="{% url 'app:search' %}" method="get" class="d-flex mt-4 mt-lg-0 ms-lg-auto ms-xl-0 align-items-center">
+                <div class="input-group">
+                    <input
+                        class="form-control border-0 input-box bg-100"
+                        type="search"
+                        name="q"
+                        placeholder="Search Food"
+                        aria-label="Search"
+                    />
+                    <button class="btn btn-outline-secondary border-0" type="submit">
+                        <i class="fas fa-search text-primary"></i>
+                    </button>
                 </div>
                 {% if user.is_authenticated %}
                 <!-- User is logged in -->
-
-                <a href="{% url 'app:logout' %}" class="btn btn-white shadow-warning text-warning me-2">
+                <a href="{% url 'app:logout' %}" class="btn btn-primary btn-sm text-white shadow-warning me-2" style="white-space: nowrap;">
                     <i class="fas fa-sign-out-alt me-2"></i>Logout
                 </a>
                 {% else %}
                 <!-- User is not logged in -->
-                <a href="{% url 'app:login' %}" class="btn btn-white shadow-warning text-warning me-2">
+                <a href="{% url 'app:login' %}" class="btn btn-primary btn-sm text-white" style="white-space: nowrap;">
                     <i class="fas fa-user me-2"></i>Login
                 </a>
-                <a href="{% url 'app:sign-up' %}" class="btn btn-primary">
+                <a href="{% url 'app:sign-up' %}" class="btn btn-primary btn-sm text-white ms-2" style="white-space: nowrap;">
                     <i class="fas fa-user-plus me-2"></i>Sign Up
                 </a>
                 {% endif %}

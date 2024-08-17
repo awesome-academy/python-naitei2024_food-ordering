@@ -18,6 +18,7 @@ urlpatterns = [
         views.DishDetail.as_view(),
         name='dish_detail'
     ),
+    path('search', views.search_view, name='search'),
 ] + static(
     settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT
