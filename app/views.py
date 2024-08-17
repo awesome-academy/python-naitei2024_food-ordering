@@ -1,5 +1,7 @@
 import json
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.conf import settings
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View, generic
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -7,9 +9,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Sum, F
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
+
+from app.forms import SignUpForm, LogInForm
 from .models import Category, MenuItem, Cart, User, CartItem
 from .constants import TOP_RATED_ITEMS_LENGTH, CART_VIEW_PAGINATE
-
 
 def index(request):
     """View function for home page of site."""
@@ -23,6 +28,59 @@ def index(request):
     }
     return render(request, "index.html", context=context)
 
+User = settings.AUTH_USER_MODEL
+
+def register_view(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST or None)
+        if form.is_valid():
+            new_user = form.save()
+            # username = form.cleaned_data.get("email")
+            # messages.success(request, f"Hi {username}, Your account was created successfully!")
+            new_user = authenticate(email=form.cleaned_data.get("email"),
+                                    password=form.cleaned_data.get("password1")
+            )
+            login(request, new_user)
+
+            return redirect("app:index")
+    else: 
+        form = SignUpForm()
+    
+    context = {
+        "form": form,
+    }
+    return render(request, "registration/sign-up.html", context)
+
+def login_view(request):
+    if request.method == "POST":
+        form = LogInForm(request.POST)
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        try:
+            user = User.objects.get(email=email)
+        except:
+            messages.warning(request, f"User with {email} does not exist")
+
+        user = authenticate(request, email=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Logged in")
+            return redirect("app:index")
+        else:
+            messages.warning(request, "User does not exist.")
+    else:
+        form = LogInForm()
+    context = {
+        "form": form
+    }
+
+    return render(request, "registration/login.html", context)
+
+def logout_view(request):
+    logout(request)
+    return redirect("app:login")
 
 def menu_view(request):
     """View function for menu."""

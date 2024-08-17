@@ -5,7 +5,11 @@ from . import constants
 
 class User(AbstractUser):
     user_id = models.AutoField(primary_key=True)
+    email = models.EmailField(unique=True)
     role = models.CharField(max_length=constants.ROLE_LENGTH)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     def __str__(self):
         return self.username
@@ -117,16 +121,13 @@ class Cart(models.Model):
     cart_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
 class CartItem(models.Model):
-    cart = models.ForeignKey(
-        Cart, related_name="items", on_delete=models.CASCADE
-    )
+    cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.IntegerField()
 
     class Meta:
-        unique_together = ("cart", "item")
+        unique_together = ('cart', 'item')
 
 
 class Review(models.Model):
